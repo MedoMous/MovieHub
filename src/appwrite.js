@@ -54,6 +54,10 @@ export const updateSearchCount = async (searchTerm, movie) => {
 
 export const getTrendingMovies = async() => {
     try{
+        console.log('🔥 Fetching trending movies...');
+        console.log('Database ID:', DATABASE_ID);
+        console.log('Collection ID:', COLLECTION_ID);
+
         const result = await database.listDocuments({
             databaseId: DATABASE_ID,
             collectionId: COLLECTION_ID,
@@ -62,9 +66,16 @@ export const getTrendingMovies = async() => {
                 Query.orderDesc('count')
             ]
         });
+
+        console.log('📊 Trending movies result:', {
+            total: result.total,
+            documentsCount: result.documents.length,
+            documents: result.documents
+        });
+
         return result.documents;
     }catch(err){
-        console.error('Error fetching trending movies:', err);
-        return []; // Return empty array on error
+        console.error('❌ Error fetching trending movies:', err);
+        return [];
     }
 }
