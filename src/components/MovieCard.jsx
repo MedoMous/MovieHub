@@ -11,7 +11,7 @@ const MovieCard = ({movie:
                 <h3>{title}</h3>
                 <div className="content">
                     <div className="rating">
-                            <img src="src/public/star.svg" alt="star"/>
+                            <img src="../../assets/star.svg" alt="star"/>
                         <p className="text-white">
                             {vote_average ? vote_average.toFixed(2) : 'N/A'}
                         </p>
