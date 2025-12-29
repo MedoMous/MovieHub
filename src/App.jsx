@@ -5,7 +5,6 @@ import {useDebounce} from 'react-use'
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import {getTrendingMovies, updateSearchCount} from "./appwrite.js";
-import TrendingMoviesCard from "./components/TrendingMoviesCard.jsx";
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -43,9 +42,7 @@ const App = () => {
             setResult(data.results || []);
 
             if(query && data.results.length > 0) {
-                console.log('🚀 Calling updateSearchCount...');
-                await updateSearchCount(query, data.results[0]); // ✅ Added await
-                console.log('✅ updateSearchCount completed');
+                await updateSearchCount(query, data.results[0]);
             }
         } catch(e){
             setError(e.message);
