@@ -1,7 +1,7 @@
-import './index.css'
+import './index.css';
 import Search from "./components/Search.jsx";
 import React, { useState, useEffect } from 'react'
-import {useDebounce} from 'react-use'
+import {useDebounce} from 'react-use';
 import Spinner from "./components/Spinner.jsx";
 import MovieCard from "./components/MovieCard.jsx";
 import {getTrendingMovies, updateSearchCount} from "./appwrite.js";
@@ -23,7 +23,8 @@ const App = () => {
     const [error, setError] = useState(null);
     const [debounceSearchTerm , setDebouncedSearchTerm] = useState('');
     const [trendingMovies, setTrendingMovies] = useState([]);
-
+    // const [trendingLoading , setTrendingLoading] = useState(true);
+    // const [trendingError , setTrendingError] = useState(null);
     useDebounce(() => setDebouncedSearchTerm(searchTerm)
         , 500 , [searchTerm])
 
