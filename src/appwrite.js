@@ -27,6 +27,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
                     count: doc.count + 1
                 }
             });
+            return updateResult;
         } else {
             const newDoc = {
                 searchTerm,
@@ -40,6 +41,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
                 documentId: ID.unique(),
                 data: newDoc
             });
+            return createResult;
         }
     } catch (err) {
         console.error('❌ Error updating search count:', {
