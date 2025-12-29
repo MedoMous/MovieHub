@@ -76,7 +76,7 @@ const App = () => {
             <div className="pattern" />
             <div className="wrapper">
                 <header>
-                    <img src="src/assets/public/hero.png" alt="Hero" /> {/* ✅ Fixed path */}
+                    <img src="../assets/public/hero.png" alt="Hero" /> {/* ✅ Fixed path */}
                     <h1>
                         Find <span className="text-gradient">Movies</span> you'll enjoy without the hassle
                     </h1>
