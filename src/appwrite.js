@@ -3,9 +3,11 @@ import {Client, Databases, ID, Query} from 'appwrite'
 const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID
 const COLLECTION_ID = import.meta.env.VITE_APPWRITE_COLLECTION_ID
 const PROJECT_ID = import.meta.env.VITE_APPWRITE_PROJECT_ID
+
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
     .setProject(PROJECT_ID)
+
 const database = new Databases(client);
 
 export const updateSearchCount = async (searchTerm, movie) => {
@@ -17,6 +19,7 @@ export const updateSearchCount = async (searchTerm, movie) => {
                 Query.equal('searchTerm', searchTerm),
             ]
         });
+
         if (result.documents.length > 0) {
             const doc = result.documents[0];
             const updateResult = await database.updateDocument({
@@ -44,27 +47,24 @@ export const updateSearchCount = async (searchTerm, movie) => {
             return createResult;
         }
     } catch (err) {
-        console.error('❌ Error updating search count:', {
-            message: err.message,
-            code: err.code,
-            type: err.type,
-            response: err.response,
-            fullError: err
-        });
+        console.error('❌ Error updating search count:', err);
+        throw err; // Re-throw so caller knows it failed
     }
 };
 
 export const getTrendingMovies = async() => {
     try{
-        const result = await database.listDocuments(
-            DATABASE_ID ,
-            COLLECTION_ID ,
-            [
+        const result = await database.listDocuments({
+            databaseId: DATABASE_ID,
+            collectionId: COLLECTION_ID,
+            queries: [
                 Query.limit(5),
                 Query.orderDesc('count')
-            ]);
+            ]
+        });
         return result.documents;
     }catch(err){
-        console.error(err);
+        console.error('Error fetching trending movies:', err);
+        return []; // Return empty array on error
     }
 }
